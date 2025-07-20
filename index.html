@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار رسم الأشكال - الدرس 3</title>
+    <title>اختبار HTML للمبتدئين</title>
     <style>
         * {
             margin: 0;
@@ -13,1078 +13,731 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0d95f7 0%, #052532 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #333;
+            padding: 20px;
+            direction: rtl;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        .quiz-header {
             background: white;
             border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
             padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
         }
 
-        .quiz-title {
-            color: #052532;
-            font-size: 2.5em;
+        .header h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            font-weight: bold;
         }
 
-        .quiz-info {
-            color: #0d95f7;
-            font-size: 1.2em;
-            margin-bottom: 15px;
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
-       
-
-        .question-card {
-            background: white;
-            border-radius: 15px;
+        .quiz-content {
             padding: 30px;
+        }
+
+        .question {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            display: none;
+            border-right: 5px solid #4facfe;
         }
 
-        .question-card.active {
-            display: block;
-        }
-
-        .question-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .question-number {
-            background: #0d95f7;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-
-        .question-points {
-            background: #052532;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-right: auto;
-        }
-
-        .question-text {
-            font-size: 1.3em;
-            color: #052532;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        .instruction-box {
-            background: #e8f4fd;
-            border-right: 4px solid #0d95f7;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-        }
-
-        .instruction-title {
-            color: #052532;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        .instruction-text {
-            color: #666;
-            line-height: 1.5;
+        .question h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
         .options {
-            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .option {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1.1em;
+            border: 2px solid transparent;
         }
 
         .option:hover {
-            background: #e8f4fd;
-            border-color: #0d95f7;
+            background: #e3f2fd;
+            border-color: #4facfe;
         }
 
-        .option.selected {
-            background: #0d95f7;
-            color: white;
-            border-color: #0d95f7;
+        .option input[type="radio"] {
+            margin-left: 10px;
+            transform: scale(1.2);
         }
 
-        .matching-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .matching-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-        }
-
-        .matching-label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #052532;
-        }
-
-        .dropdown {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1em;
-            background: white;
-        }
-
-        .dropdown:focus {
-            border-color: #0d95f7;
-            outline: none;
-        }
-
-        .ordering-container {
-            margin-bottom: 30px;
-        }
-
-        .ordering-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .order-number {
-            background: #0d95f7;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1em;
-            font-weight: bold;
+        .option label {
             cursor: pointer;
-            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 1rem;
         }
 
-        .btn-primary {
-            background: #0d95f7;
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background: #0b7fd1;
+        .submit-btn:hover {
             transform: translateY(-2px);
         }
 
-        .btn-secondary {
-            background: #052532;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #073a4a;
-            transform: translateY(-2px);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
+        .submit-btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        .progress-bar {
-            background: #e9ecef;
-            height: 8px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #0d95f7, #052532);
-            height: 100%;
-            transition: width 0.3s ease;
-        }
-
-        .results-container {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .results {
             display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            text-align: center;
         }
 
-        .score-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: conic-gradient(#0d95f7 0deg, #0d95f7 var(--score-angle), #e9ecef var(--score-angle));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-
-        .score-inner {
-            width: 120px;
-            height: 120px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .score-text {
-            font-size: 2em;
+        .score {
+            font-size: 2rem;
             font-weight: bold;
-            color: #052532;
+            margin-bottom: 20px;
         }
 
-        .review-container {
+        .score.excellent { color: #27ae60; }
+        .score.good { color: #f39c12; }
+        .score.needs-improvement { color: #e74c3c; }
+
+        .review {
             display: none;
             margin-top: 30px;
         }
 
-        .review-question {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+        .review h2 {
+            color: #2c3e50;
             margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
-        .review-header {
-            display: flex;
-            align-items: center;
+        .question-review {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 15px;
         }
 
-        .review-status {
-            font-size: 1.5em;
-            margin-left: 10px;
+        .question-review.correct {
+            border-right: 5px solid #27ae60;
         }
 
-        .answer-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
+        .question-review.incorrect {
+            border-right: 5px solid #e74c3c;
         }
 
-        .answer-box {
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid;
-        }
-
-        .student-answer {
-            background: #fff5f5;
-            border-color: #fed7d7;
+        .user-answer {
+            color: #e74c3c;
+            font-weight: bold;
         }
 
         .correct-answer {
-            background: #f0fff4;
-            border-color: #c6f6d5;
+            color: #27ae60;
+            font-weight: bold;
         }
 
-        .explanation {
-            background: #e8f4fd;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border-right: 4px solid #0d95f7;
-        }
-
-        .blocked-message {
-            background: white;
+        .answer-status {
+            display: inline-block;
+            padding: 5px 10px;
             border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        .blocked-icon {
-            font-size: 4em;
-            color: #dc3545;
-            margin-bottom: 20px;
+        .answer-status.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .answer-status.incorrect {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .header h1 {
+                font-size: 2rem;
             }
             
-            .quiz-title {
-                font-size: 2em;
+            .quiz-content {
+                padding: 20px;
             }
             
-            .matching-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .answer-comparison {
-                grid-template-columns: 1fr;
+            .question {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Blocked Message -->
-        <div id="blockedMessage" class="blocked-message">
-            <div class="blocked-icon">🚫</div>
-            <h2 style="color: #dc3545; margin-bottom: 20px;">تم أداء الاختبار مسبقاً</h2>
-            <p style="font-size: 1.2em; color: #666; margin-bottom: 30px;">
-                لقد قمت بأداء هذا الاختبار من قبل من هذا الجهاز. كل طالب يمكنه المحاولة مرة واحدة فقط.
-            </p>
-            <p style="color: #999;">
-                إذا كنت تعتقد أن هناك خطأ، يرجى التواصل مع المعلم.
-            </p>
+        <div class="header">
+            <h1>🎯 اختبار HTML للمبتدئين</h1>
+            <p>15 سؤالاً في أساسيات HTML - اختبر معلوماتك!</p>
         </div>
 
-        <!-- Quiz Header -->
-        <div class="quiz-header">
-            <h1 class="quiz-title">🎨 اختبار رسم الأشكال</h1>
-            <div class="quiz-info">📘 الدرس 3 - رسم الأشكال</div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-        </div>
-
-        <!-- Question 1: Matching -->
-        <div class="question-card active" id="question1">
-            <div class="question-header">
-                <div class="question-number">1</div>
-                <div class="question-points">4 نقاط</div>
-            </div>
-            
-            <div class="instruction-box">
-                <div class="instruction-title">💡 كيفية حل أسئلة المطابقة:</div>
-                <div class="instruction-text">
-                    اقرأ كل عنصر في العمود الأيسر بعناية، ثم اختر القيمة المناسبة له من القائمة المنسدلة. تذكر أن الستيج في سكراتش يبدأ من النقطة (0,0) في المنتصف.
+        <div class="quiz-content">
+            <form id="quizForm">
+                <!-- السؤال 1 -->
+                <div class="question">
+                    <h3>1. ما دور وسم &lt;!DOCTYPE html&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">أ) يبدأ صفحة &lt;head&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">ب) يحدد نوع HTML5</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">ج) ينشئ عنصر &lt;html&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">د) جزء من &lt;meta&gt;</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                طابق بين قيم أبعاد الستيج (Stage) مع القيم الصحيحة:
-            </div>
-
-            <div class="matching-container">
-                <div class="matching-item">
-                    <div class="matching-label">أقل قيمة لـ X</div>
-                    <select class="dropdown" data-answer="-240">
-                        <option value="">اختر القيمة</option>
-                        <option value="-240">-240</option>
-                        <option value="240">240</option>
-                        <option value="-180">-180</option>
-                        <option value="180">180</option>
-                    </select>
+                <!-- السؤال 2 -->
+                <div class="question">
+                    <h3>2. أين توضع سمة lang="ar"؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">أ) داخل &lt;head&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">ب) داخل وسم &lt;html&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">ج) داخل &lt;body&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">د) داخل &lt;meta&gt;</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="matching-item">
-                    <div class="matching-label">أعلى قيمة لـ X</div>
-                    <select class="dropdown" data-answer="240">
-                        <option value="">اختر القيمة</option>
-                        <option value="-240">-240</option>
-                        <option value="240">240</option>
-                        <option value="-180">-180</option>
-                        <option value="180">180</option>
-                    </select>
+
+                <!-- السؤال 3 -->
+                <div class="question">
+                    <h3>3. أي الوسوم التالية لا يوضع داخل &lt;head&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">أ) &lt;title&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">ب) &lt;meta&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">ج) &lt;link&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3d" name="q3" value="d">
+                            <label for="q3d">د) &lt;body&gt;</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="matching-item">
-                    <div class="matching-label">أقل قيمة لـ Y</div>
-                    <select class="dropdown" data-answer="-180">
-                        <option value="">اختر القيمة</option>
-                        <option value="-240">-240</option>
-                        <option value="240">240</option>
-                        <option value="-180">-180</option>
-                        <option value="180">180</option>
-                    </select>
+
+                <!-- السؤال 4 -->
+                <div class="question">
+                    <h3>4. ما فائدة &lt;meta charset="UTF-8"&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q4a" name="q4" value="a">
+                            <label for="q4a">أ) لتحديد ترميز الأحرف</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4b" name="q4" value="b">
+                            <label for="q4b">ب) لوصل ملف CSS</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4c" name="q4" value="c">
+                            <label for="q4c">ج) لإضافة وصف للصفحة</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4d" name="q4" value="d">
+                            <label for="q4d">د) لتحديد لغة الصفحة</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="matching-item">
-                    <div class="matching-label">أعلى قيمة لـ Y</div>
-                    <select class="dropdown" data-answer="180">
-                        <option value="">اختر القيمة</option>
-                        <option value="-240">-240</option>
-                        <option value="240">240</option>
-                        <option value="-180">-180</option>
-                        <option value="180">180</option>
-                    </select>
+
+                <!-- السؤال 5 -->
+                <div class="question">
+                    <h3>5. وسم &lt;link rel="stylesheet"&gt; يربط ملف جافاسكربت.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q5a" name="q5" value="true">
+                            <label for="q5a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5b" name="q5" value="false">
+                            <label for="q5b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="navigation">
-                <div></div>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 2: Multiple Choice -->
-        <div class="question-card" id="question2">
-            <div class="question-header">
-                <div class="question-number">2</div>
-                <div class="question-points">2 نقطة</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 كيفية حل الاختيار من متعدد:</div>
-                <div class="instruction-text">
-                    اقرأ السؤال بعناية، ثم فكر في كل خيار. استبعد الإجابات التي تعرف أنها خاطئة أولاً، ثم اختر الإجابة الأكثر منطقية.
+                <!-- السؤال 6 -->
+                <div class="question">
+                    <h3>6. ما الفرق بين &lt;div&gt; و &lt;span&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q6a" name="q6" value="a">
+                            <label for="q6a">أ) &lt;div&gt; inline و &lt;span&gt; block</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6b" name="q6" value="b">
+                            <label for="q6b">ب) &lt;div&gt; حجم النص و &lt;span&gt; يحفظ الصور</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6c" name="q6" value="c">
+                            <label for="q6c">ج) &lt;div&gt; عنصر block و &lt;span&gt; عنصر inline</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6d" name="q6" value="d">
+                            <label for="q6d">د) لا يوجد فرق</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                أي بلوك يخلي السبرايت يرسم على الستيج؟
-            </div>
-
-            <div class="options">
-                <div class="option" onclick="selectOption(this, false)">pen up block</div>
-                <div class="option" onclick="selectOption(this, true)">pen down block</div>
-                <div class="option" onclick="selectOption(this, false)">erase all block</div>
-            </div>
-
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 3: Ordering -->
-        <div class="question-card" id="question3">
-            <div class="question-header">
-                <div class="question-number">3</div>
-                <div class="question-points">4 نقاط</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 كيفية حل أسئلة الترتيب:</div>
-                <div class="instruction-text">
-                    فكر في التسلسل المنطقي للخطوات. ما هي الخطوة الأولى؟ وما الذي يأتي بعدها؟ رتب الخطوات من 1 إلى 4 حسب التسلسل الصحيح.
+                <!-- السؤال 7 -->
+                <div class="question">
+                    <h3>7. كيف تصنع قائمة مرقّمة؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q7a" name="q7" value="a">
+                            <label for="q7a">أ) &lt;ul&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7b" name="q7" value="b">
+                            <label for="q7b">ب) &lt;ol&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7c" name="q7" value="c">
+                            <label for="q7c">ج) &lt;list&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7d" name="q7" value="d">
+                            <label for="q7d">د) &lt;li&gt;</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                رتب الخطوات الصحيحة لرسم مربع:
-            </div>
-
-            <div class="ordering-container">
-                <div class="ordering-item">
-                    <div class="order-number">1</div>
-                    <select class="dropdown" data-answer="clear the stage">
-                        <option value="">اختر الخطوة الأولى</option>
-                        <option value="clear the stage">clear the stage</option>
-                        <option value="pen down">pen down</option>
-                        <option value="repeat 4 times: move 100 steps and turn 90 degrees">repeat 4 times: move 100 steps and turn 90 degrees</option>
-                        <option value="pen up">pen up</option>
-                    </select>
+                <!-- السؤال 8 -->
+                <div class="question">
+                    <h3>8. أي الوسوم تُستخدم لإضافة فاصل سطر؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q8a" name="q8" value="a">
+                            <label for="q8a">أ) &lt;p&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8b" name="q8" value="b">
+                            <label for="q8b">ب) &lt;br&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8c" name="q8" value="c">
+                            <label for="q8c">ج) &lt;hr&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8d" name="q8" value="d">
+                            <label for="q8d">د) &lt;span&gt;</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="ordering-item">
-                    <div class="order-number">2</div>
-                    <select class="dropdown" data-answer="pen down">
-                        <option value="">اختر الخطوة الثانية</option>
-                        <option value="clear the stage">clear the stage</option>
-                        <option value="pen down">pen down</option>
-                        <option value="repeat 4 times: move 100 steps and turn 90 degrees">repeat 4 times: move 100 steps and turn 90 degrees</option>
-                        <option value="pen up">pen up</option>
-                    </select>
+
+                <!-- السؤال 9 -->
+                <div class="question">
+                    <h3>9. ما وسم يستخدم لعرض صور؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q9a" name="q9" value="a">
+                            <label for="q9a">أ) &lt;picture&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9b" name="q9" value="b">
+                            <label for="q9b">ب) &lt;img&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9c" name="q9" value="c">
+                            <label for="q9c">ج) &lt;image&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9d" name="q9" value="d">
+                            <label for="q9d">د) &lt;src&gt;</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="ordering-item">
-                    <div class="order-number">3</div>
-                    <select class="dropdown" data-answer="repeat 4 times: move 100 steps and turn 90 degrees">
-                        <option value="">اختر الخطوة الثالثة</option>
-                        <option value="clear the stage">clear the stage</option>
-                        <option value="pen down">pen down</option>
-                        <option value="repeat 4 times: move 100 steps and turn 90 degrees">repeat 4 times: move 100 steps and turn 90 degrees</option>
-                        <option value="pen up">pen up</option>
-                    </select>
+
+                <!-- السؤال 10 -->
+                <div class="question">
+                    <h3>10. وسم &lt;img&gt; يتطلب سمة src.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q10a" name="q10" value="true">
+                            <label for="q10a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10b" name="q10" value="false">
+                            <label for="q10b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="ordering-item">
-                    <div class="order-number">4</div>
-                    <select class="dropdown" data-answer="pen up">
-                        <option value="">اختر الخطوة الرابعة</option>
-                        <option value="clear the stage">clear the stage</option>
-                        <option value="pen down">pen down</option>
-                        <option value="repeat 4 times: move 100 steps and turn 90 degrees">repeat 4 times: move 100 steps and turn 90 degrees</option>
-                        <option value="pen up">pen up</option>
-                    </select>
+
+                <!-- السؤال 11 -->
+                <div class="question">
+                    <h3>11. &lt;title&gt; يظهر في تبويب المتصفح.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q11a" name="q11" value="true">
+                            <label for="q11a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q11b" name="q11" value="false">
+                            <label for="q11b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 4: Multiple Choice -->
-        <div class="question-card" id="question4">
-            <div class="question-header">
-                <div class="question-number">4</div>
-                <div class="question-points">2 نقطة</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 نصيحة للحل:</div>
-                <div class="instruction-text">
-                    فكر في شكل المثلث - كم ضلع له؟ هذا سيساعدك في معرفة عدد مرات التكرار المطلوبة.
+                <!-- السؤال 12 -->
+                <div class="question">
+                    <h3>12. وسم &lt;body&gt; يمكن أن يحتوي على &lt;meta&gt;.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q12a" name="q12" value="true">
+                            <label for="q12a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q12b" name="q12" value="false">
+                            <label for="q12b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                كم مرة نكرر خطوات التحرك والدوران لرسم مثلث متساوي الأضلاع؟
-            </div>
-
-            <div class="options">
-                <div class="option" onclick="selectOption(this, false)">2</div>
-                <div class="option" onclick="selectOption(this, true)">3</div>
-                <div class="option" onclick="selectOption(this, false)">4</div>
-                <div class="option" onclick="selectOption(this, false)">6</div>
-            </div>
-
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 5: Multiple Choice -->
-        <div class="question-card" id="question5">
-            <div class="question-header">
-                <div class="question-number">5</div>
-                <div class="question-points">2 نقطة</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 نصيحة للحل:</div>
-                <div class="instruction-text">
-                    المثلث المتساوي الأضلاع له 3 زوايا متساوية. مجموع زوايا المثلث = 180°. احسب كل زاوية داخلية، ثم اطرحها من 180° للحصول على زاوية الدوران الخارجية.
+                <!-- السؤال 13 -->
+                <div class="question">
+                    <h3>13. الوسم &lt;br&gt; عنصر ذاتي الإغلاق (self-closing).</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q13a" name="q13" value="true">
+                            <label for="q13a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q13b" name="q13" value="false">
+                            <label for="q13b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                كم درجة يجب أن يدور السبرايت لرسم مثلث متساوي الأضلاع؟
-            </div>
-
-            <div class="options">
-                <div class="option" onclick="selectOption(this, false)">90°</div>
-                <div class="option" onclick="selectOption(this, false)">180°</div>
-                <div class="option" onclick="selectOption(this, true)">120°</div>
-                <div class="option" onclick="selectOption(this, false)">60°</div>
-            </div>
-
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 6: Multiple Choice -->
-        <div class="question-card" id="question6">
-            <div class="question-header">
-                <div class="question-number">6</div>
-                <div class="question-points">3 نقاط</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 نصيحة للحل:</div>
-                <div class="instruction-text">
-                    فكر في معنى كلمة "erase" في الإنجليزية، وما الذي يحتاج إلى مسح في برنامج الرسم.
+                <!-- السؤال 14 -->
+                <div class="question">
+                    <h3>14. يمكن استخدام وسم &lt;link&gt; داخل &lt;body&gt;.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q14a" name="q14" value="true">
+                            <label for="q14a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q14b" name="q14" value="false">
+                            <label for="q14b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="question-text">
-                ما وظيفة بلوك erase all؟
-            </div>
-
-            <div class="options">
-                <div class="option" onclick="selectOption(this, false)">يمسح السبرايت</div>
-                <div class="option" onclick="selectOption(this, false)">يخلي السبرايت يوقف</div>
-                <div class="option" onclick="selectOption(this, true)">يمسح كل الرسومات اللي على الستيج</div>
-                <div class="option" onclick="selectOption(this, false)">يغير خلفية الستيج</div>
-            </div>
-
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="nextQuestion()">السؤال التالي ←</button>
-            </div>
-        </div>
-
-        <!-- Question 7: Multiple Choice -->
-        <div class="question-card" id="question7">
-            <div class="question-header">
-                <div class="question-number">7</div>
-                <div class="question-points">3 نقاط</div>
-            </div>
-
-            <div class="instruction-box">
-                <div class="instruction-title">💡 نصيحة للحل:</div>
-                <div class="instruction-text">
-                    المربع له 4 أضلاع متساوية و4 زوايا قائمة. فكر في الزاوية القائمة وكم درجة تساوي.
+                <!-- السؤال 15 -->
+                <div class="question">
+                    <h3>15. &lt;strong&gt; و &lt;b&gt; يظهران النص بالخط العريض، لكن &lt;strong&gt; دلالي.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q15a" name="q15" value="true">
+                            <label for="q15a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q15b" name="q15" value="false">
+                            <label for="q15b">خطأ</label>
+                        </div>
+                    </div>
                 </div>
+
+                <button type="submit" class="submit-btn">إنهاء الاختبار وعرض النتيجة</button>
+            </form>
+
+            <div id="results" class="results">
+                <div id="scoreDisplay" class="score"></div>
+                <p id="scoreMessage"></p>
             </div>
 
-            <div class="question-text">
-                لرسم مربع، كم درجة يجب أن يدور السبرايت في كل مرة؟
+            <div id="review" class="review">
+                <h2>📋 مراجعة الإجابات</h2>
+                <div id="reviewContent"></div>
             </div>
-
-            <div class="options">
-                <div class="option" onclick="selectOption(this, false)">120°</div>
-                <div class="option" onclick="selectOption(this, true)">90°</div>
-                <div class="option" onclick="selectOption(this, false)">60°</div>
-                <div class="option" onclick="selectOption(this, false)">180°</div>
-            </div>
-
-            <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevQuestion()">→ السؤال السابق</button>
-                <button class="btn btn-primary" onclick="finishQuiz()">إنهاء الاختبار</button>
-            </div>
-        </div>
-
-        <!-- Results -->
-        <div class="results-container" id="results">
-            <h2 style="color: #052532; margin-bottom: 30px;">🎉 انتهيت من الاختبار!</h2>
-            <div class="score-circle" id="scoreCircle">
-                <div class="score-inner">
-                    <div class="score-text" id="scoreText">0/22</div>
-                    <div style="color: #666;">نقطة</div>
-                </div>
-            </div>
-            <div style="font-size: 1.3em; color: #052532; margin-bottom: 30px;">
-                نسبة النجاح: <span id="percentage">0%</span>
-            </div>
-            <button class="btn btn-primary" onclick="showReview()">📋 مراجعة الإجابات</button>
-        </div>
-
-        <!-- Review Section -->
-        <div class="review-container" id="reviewContainer">
-            <h2 style="color: #052532; margin-bottom: 30px; text-align: center;">📋 مراجعة الإجابات</h2>
-            <div id="reviewContent"></div>
         </div>
     </div>
 
     <script>
-        let currentQuestion = 1;
-        let totalQuestions = 7;
-        let timeLeft = 596; // 9 minutes 56 seconds
-        let userAnswers = {};
-        let quizCompleted = false;
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'b', 
+            q3: 'd',
+            q4: 'a',
+            q5: 'false',
+            q6: 'c',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'true',
+            q11: 'true',
+            q12: 'false',
+            q13: 'true',
+            q14: 'false',
+            q15: 'true'
+        };
 
-        // Check if quiz was already taken
-        function checkQuizStatus() {
-            const quizTaken = localStorage.getItem('quiz_shapes_completed');
-            if (quizTaken) {
-                document.getElementById('blockedMessage').style.display = 'block';
-                document.querySelector('.quiz-header').style.display = 'none';
-                document.querySelector('.progress-bar').style.display = 'none';
-                document.querySelectorAll('.question-card').forEach(card => {
-                    card.style.display = 'none';
-                });
-                return true;
-            }
-            return false;
-        }
-
- 
-
-      
-        function updateProgress() {
-            const progress = (currentQuestion - 1) / totalQuestions * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-
-        function selectOption(element, isCorrect) {
-            // Remove previous selections
-            element.parentNode.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Select current option
-            element.classList.add('selected');
-            
-            // Store answer
-            userAnswers[currentQuestion] = {
-                selected: element.textContent,
-                correct: isCorrect,
-                type: 'multiple_choice'
-            };
-        }
-
-        function nextQuestion() {
-            // Validate current question
-            if (!validateCurrentQuestion()) {
-                alert('يرجى الإجابة على السؤال قبل المتابعة');
-                return;
-            }
-
-            // Hide current question
-            document.getElementById(`question${currentQuestion}`).classList.remove('active');
-            
-            // Show next question
-            currentQuestion++;
-            if (currentQuestion <= totalQuestions) {
-                document.getElementById(`question${currentQuestion}`).classList.add('active');
-                updateProgress();
-            }
-        }
-
-        function prevQuestion() {
-            // Hide current question
-            document.getElementById(`question${currentQuestion}`).classList.remove('active');
-            
-            // Show previous question
-            currentQuestion--;
-            document.getElementById(`question${currentQuestion}`).classList.add('active');
-            updateProgress();
-        }
-
-        function validateCurrentQuestion() {
-            if (currentQuestion === 1) {
-                // Matching question
-                const dropdowns = document.querySelectorAll('#question1 .dropdown');
-                let allAnswered = true;
-                let answers = {};
-                
-                dropdowns.forEach(dropdown => {
-                    if (!dropdown.value) {
-                        allAnswered = false;
-                    } else {
-                        const label = dropdown.parentNode.querySelector('.matching-label').textContent;
-                        answers[label] = {
-                            selected: dropdown.value,
-                            correct: dropdown.value === dropdown.dataset.answer
-                        };
-                    }
-                });
-                
-                if (allAnswered) {
-                    userAnswers[1] = {
-                        answers: answers,
-                        type: 'matching'
-                    };
+        const questions = [
+            {
+                question: 'ما دور وسم &lt;!DOCTYPE html&gt;؟',
+                options: {
+                    a: 'أ) يبدأ صفحة &lt;head&gt;',
+                    b: 'ب) يحدد نوع HTML5',
+                    c: 'ج) ينشئ عنصر &lt;html&gt;',
+                    d: 'د) جزء من &lt;meta&gt;'
                 }
-                
-                return allAnswered;
-            } else if (currentQuestion === 3) {
-                // Ordering question
-                const dropdowns = document.querySelectorAll('#question3 .dropdown');
-                let allAnswered = true;
-                let answers = {};
-                
-                dropdowns.forEach((dropdown, index) => {
-                    if (!dropdown.value) {
-                        allAnswered = false;
-                    } else {
-                        answers[`step${index + 1}`] = {
-                            selected: dropdown.value,
-                            correct: dropdown.value === dropdown.dataset.answer
-                        };
-                    }
-                });
-                
-                if (allAnswered) {
-                    userAnswers[3] = {
-                        answers: answers,
-                        type: 'ordering'
-                    };
+            },
+            {
+                question: 'أين توضع سمة lang="ar"؟',
+                options: {
+                    a: 'أ) داخل &lt;head&gt;',
+                    b: 'ب) داخل وسم &lt;html&gt;',
+                    c: 'ج) داخل &lt;body&gt;',
+                    d: 'د) داخل &lt;meta&gt;'
                 }
-                
-                return allAnswered;
-            } else {
-                // Multiple choice questions
-                return userAnswers[currentQuestion] !== undefined;
+            },
+            {
+                question: 'أي الوسوم التالية لا يوضع داخل &lt;head&gt;؟',
+                options: {
+                    a: 'أ) &lt;title&gt;',
+                    b: 'ب) &lt;meta&gt;',
+                    c: 'ج) &lt;link&gt;',
+                    d: 'د) &lt;body&gt;'
+                }
+            },
+            {
+                question: 'ما فائدة &lt;meta charset="UTF-8"&gt;؟',
+                options: {
+                    a: 'أ) لتحديد ترميز الأحرف',
+                    b: 'ب) لوصل ملف CSS',
+                    c: 'ج) لإضافة وصف للصفحة',
+                    d: 'د) لتحديد لغة الصفحة'
+                }
+            },
+            {
+                question: 'وسم &lt;link rel="stylesheet"&gt; يربط ملف جافاسكربت.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'ما الفرق بين &lt;div&gt; و &lt;span&gt;؟',
+                options: {
+                    a: 'أ) &lt;div&gt; inline و &lt;span&gt; block',
+                    b: 'ب) &lt;div&gt; حجم النص و &lt;span&gt; يحفظ الصور',
+                    c: 'ج) &lt;div&gt; عنصر block و &lt;span&gt; عنصر inline',
+                    d: 'د) لا يوجد فرق'
+                }
+            },
+            {
+                question: 'كيف تصنع قائمة مرقّمة؟',
+                options: {
+                    a: 'أ) &lt;ul&gt;',
+                    b: 'ب) &lt;ol&gt;',
+                    c: 'ج) &lt;list&gt;',
+                    d: 'د) &lt;li&gt;'
+                }
+            },
+            {
+                question: 'أي الوسوم تُستخدم لإضافة فاصل سطر؟',
+                options: {
+                    a: 'أ) &lt;p&gt;',
+                    b: 'ب) &lt;br&gt;',
+                    c: 'ج) &lt;hr&gt;',
+                    d: 'د) &lt;span&gt;'
+                }
+            },
+            {
+                question: 'ما وسم يستخدم لعرض صور؟',
+                options: {
+                    a: 'أ) &lt;picture&gt;',
+                    b: 'ب) &lt;img&gt;',
+                    c: 'ج) &lt;image&gt;',
+                    d: 'د) &lt;src&gt;'
+                }
+            },
+            {
+                question: 'وسم &lt;img&gt; يتطلب سمة src.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: '&lt;title&gt; يظهر في تبويب المتصفح.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'وسم &lt;body&gt; يمكن أن يحتوي على &lt;meta&gt;.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'الوسم &lt;br&gt; عنصر ذاتي الإغلاق (self-closing).',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'يمكن استخدام وسم &lt;link&gt; داخل &lt;body&gt;.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: '&lt;strong&gt; و &lt;b&gt; يظهران النص بالخط العريض، لكن &lt;strong&gt; دلالي.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
             }
-        }
+        ];
 
-        function finishQuiz() {
-            if (!validateCurrentQuestion()) {
-                alert('يرجى الإجابة على السؤال قبل إنهاء الاختبار');
-                return;
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let score = 0;
+            let userAnswers = {};
+            
+            // جمع إجابات المستخدم
+            for (let [key, value] of formData.entries()) {
+                userAnswers[key] = value;
             }
-
-            // Mark quiz as completed
-            localStorage.setItem('quiz_shapes_completed', 'true');
             
-            // Hide all questions
-            document.querySelectorAll('.question-card').forEach(card => {
-                card.style.display = 'none';
-            });
+            // التحقق من الإجابات
+            for (let question in correctAnswers) {
+                if (userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
             
-            // Calculate and show results
-            calculateResults();
+            // عرض النتيجة
+            displayResults(score, userAnswers);
+            
+            // إخفاء النموذج وإظهار النتائج
+            this.style.display = 'none';
             document.getElementById('results').style.display = 'block';
-        }
+            document.getElementById('review').style.display = 'block';
+        });
 
-        function calculateResults() {
-            let totalScore = 0;
-            let maxScore = 22; // Total points
-
-            // Question 1 (4 points)
-            if (userAnswers[1]) {
-                let correctCount = 0;
-                Object.values(userAnswers[1].answers).forEach(answer => {
-                    if (answer.correct) correctCount++;
-                });
-                totalScore += correctCount;
-            }
-
-            // Questions 2, 4, 5 (2 points each)
-            [2, 4, 5].forEach(qNum => {
-                if (userAnswers[qNum] && userAnswers[qNum].correct) {
-                    totalScore += 2;
-                }
-            });
-
-            // Question 3 (4 points)
-            if (userAnswers[3]) {
-                let correctCount = 0;
-                Object.values(userAnswers[3].answers).forEach(answer => {
-                    if (answer.correct) correctCount++;
-                });
-                totalScore += correctCount;
-            }
-
-            // Questions 6, 7 (3 points each)
-            [6, 7].forEach(qNum => {
-                if (userAnswers[qNum] && userAnswers[qNum].correct) {
-                    totalScore += 3;
-                }
-            });
-
-            const percentage = Math.round((totalScore / maxScore) * 100);
+        function displayResults(score, userAnswers) {
+            const percentage = (score / 15) * 100;
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
             
-            document.getElementById('scoreText').textContent = `${totalScore}/${maxScore}`;
-            document.getElementById('percentage').textContent = `${percentage}%`;
+            scoreDisplay.textContent = `${score}/15 (${percentage.toFixed(1)}%)`;
             
-            // Update score circle
-            const scoreAngle = (totalScore / maxScore) * 360;
-            document.getElementById('scoreCircle').style.setProperty('--score-angle', `${scoreAngle}deg`);
+            if (percentage >= 80) {
+                scoreDisplay.className = 'score excellent';
+                scoreMessage.textContent = '🎉 ممتاز! لديك فهم قوي لأساسيات HTML';
+            } else if (percentage >= 60) {
+                scoreDisplay.className = 'score good';
+                scoreMessage.textContent = '👍 جيد! تحتاج لمراجعة بعض المفاهيم';
+            } else {
+                scoreDisplay.className = 'score needs-improvement';
+                scoreMessage.textContent = '📚 يحتاج تحسين - راجع المواد وحاول مرة أخرى';
+            }
+            
+            // عرض مراجعة الإجابات
+            displayReview(userAnswers);
         }
 
-        function showReview() {
-            document.getElementById('reviewContainer').style.display = 'block';
-            generateReview();
-        }
-
-        function generateReview() {
+        function displayReview(userAnswers) {
             const reviewContent = document.getElementById('reviewContent');
             let reviewHTML = '';
-
-            // Question 1 Review
-            reviewHTML += generateMatchingReview(1, 'طابق بين قيم أبعاد الستيج (Stage) مع القيم الصحيحة:', {
-                'أقل قيمة لـ X': '-240',
-                'أعلى قيمة لـ X': '240',
-                'أقل قيمة لـ Y': '-180',
-                'أعلى قيمة لـ Y': '180'
-            }, 'الستيج في سكراتش له أبعاد ثابتة: العرض 480 بكسل (من -240 إلى 240) والارتفاع 360 بكسل (من -180 إلى 180). النقطة (0,0) في المنتصف.');
-
-            // Question 2 Review
-            reviewHTML += generateMultipleChoiceReview(2, 'أي بلوك يخلي السبرايت يرسم على الستيج؟', 'pen down block', 'بلوك pen down يخلي السبرايت يبدأ الرسم، بينما pen up يوقف الرسم. erase all يمسح الرسومات الموجودة.');
-
-            // Question 3 Review
-            reviewHTML += generateOrderingReview(3, 'رتب الخطوات الصحيحة لرسم مربع:', [
-                'clear the stage',
-                'pen down', 
-                'repeat 4 times: move 100 steps and turn 90 degrees',
-                'pen up'
-            ], 'الترتيب الصحيح: أولاً نمسح الستيج، ثم نبدأ الرسم، ثم نكرر الحركة والدوران، وأخيراً نوقف الرسم.');
-
-            // Question 4 Review
-            reviewHTML += generateMultipleChoiceReview(4, 'كم مرة نكرر خطوات التحرك والدوران لرسم مثلث متساوي الأضلاع؟', '3', 'المثلث له 3 أضلاع، لذلك نحتاج 3 تكرارات لرسمه.');
-
-            // Question 5 Review
-            reviewHTML += generateMultipleChoiceReview(5, 'كم درجة يجب أن يدور السبرايت لرسم مثلث متساوي الأضلاع؟', '120°', 'زاوية الدوران الخارجية = 360° ÷ 3 أضلاع = 120°. هذه ليست الزاوية الداخلية (60°) بل الخارجية.');
-
-            // Question 6 Review
-            reviewHTML += generateMultipleChoiceReview(6, 'ما وظيفة بلوك erase all؟', 'يمسح كل الرسومات اللي على الستيج', 'بلوك erase all يمسح جميع الرسومات من الستيج، وليس السبرايت نفسه.');
-
-            // Question 7 Review
-            reviewHTML += generateMultipleChoiceReview(7, 'لرسم مربع، كم درجة يجب أن يدور السبرايت في كل مرة؟', '90°', 'المربع له 4 زوايا قائمة، كل زاوية = 90°. زاوية الدوران الخارجية = 360° ÷ 4 = 90°.');
-
+            
+            questions.forEach((q, index) => {
+                const questionKey = `q${index + 1}`;
+                const userAnswer = userAnswers[questionKey];
+                const correctAnswer = correctAnswers[questionKey];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                reviewHTML += `
+                    <div class="question-review ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="answer-status ${isCorrect ? 'correct' : 'incorrect'}">
+                            ${isCorrect ? '✅ إجابة صحيحة' : '❌ إجابة خاطئة'}
+                        </div>
+                        <h4>${index + 1}. ${q.question}</h4>
+                        ${!isCorrect ? `<p><strong>إجابتك:</strong> <span class="user-answer">${q.options[userAnswer] || 'لم تجب'}</span></p>` : ''}
+                        <p><strong>الإجابة الصحيحة:</strong> <span class="correct-answer">${q.options[correctAnswer]}</span></p>
+                    </div>
+                `;
+            });
+            
             reviewContent.innerHTML = reviewHTML;
         }
-
-        function generateMultipleChoiceReview(qNum, question, correctAnswer, explanation) {
-            const userAnswer = userAnswers[qNum];
-            const isCorrect = userAnswer && userAnswer.correct;
-            const status = isCorrect ? '✅' : '❌';
-            
-            return `
-                <div class="review-question">
-                    <div class="review-header">
-                        <h3>السؤال ${qNum}</h3>
-                        <span class="review-status">${status}</span>
-                    </div>
-                    <p><strong>${question}</strong></p>
-                    <div class="answer-comparison">
-                        <div class="answer-box student-answer">
-                            <strong>إجابتك:</strong><br>
-                            ${userAnswer ? userAnswer.selected : 'لم تجب'}
-                        </div>
-                        <div class="answer-box correct-answer">
-                            <strong>الإجابة الصحيحة:</strong><br>
-                            ${correctAnswer}
-                        </div>
-                    </div>
-                    <div class="explanation">
-                        <strong>الشرح:</strong> ${explanation}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateMatchingReview(qNum, question, correctAnswers, explanation) {
-            const userAnswer = userAnswers[qNum];
-            let reviewHTML = `
-                <div class="review-question">
-                    <div class="review-header">
-                        <h3>السؤال ${qNum}</h3>
-                        <span class="review-status">`;
-            
-            let correctCount = 0;
-            if (userAnswer) {
-                Object.values(userAnswer.answers).forEach(answer => {
-                    if (answer.correct) correctCount++;
-                });
-            }
-            
-            reviewHTML += correctCount === 4 ? '✅' : '❌';
-            reviewHTML += `</span>
-                    </div>
-                    <p><strong>${question}</strong></p>
-                    <div style="margin: 20px 0;">`;
-            
-            Object.entries(correctAnswers).forEach(([key, value]) => {
-                const userValue = userAnswer && userAnswer.answers[key] ? userAnswer.answers[key].selected : 'لم تجب';
-                const isCorrect = userValue === value;
-                reviewHTML += `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 10px; background: ${isCorrect ? '#f0fff4' : '#fff5f5'}; border-radius: 5px;">
-                        <span><strong>${key}:</strong></span>
-                        <span>إجابتك: ${userValue} | الصحيحة: ${value} ${isCorrect ? '✅' : '❌'}</span>
-                    </div>
-                `;
-            });
-            
-            reviewHTML += `</div>
-                    <div class="explanation">
-                        <strong>الشرح:</strong> ${explanation}
-                    </div>
-                </div>
-            `;
-            
-            return reviewHTML;
-        }
-
-        function generateOrderingReview(qNum, question, correctOrder, explanation) {
-            const userAnswer = userAnswers[qNum];
-            let reviewHTML = `
-                <div class="review-question">
-                    <div class="review-header">
-                        <h3>السؤال ${qNum}</h3>
-                        <span class="review-status">`;
-            
-            let correctCount = 0;
-            if (userAnswer) {
-                Object.values(userAnswer.answers).forEach(answer => {
-                    if (answer.correct) correctCount++;
-                });
-            }
-            
-            reviewHTML += correctCount === 4 ? '✅' : '❌';
-            reviewHTML += `</span>
-                    </div>
-                    <p><strong>${question}</strong></p>
-                    <div style="margin: 20px 0;">`;
-            
-            correctOrder.forEach((step, index) => {
-                const userStep = userAnswer && userAnswer.answers[`step${index + 1}`] ? userAnswer.answers[`step${index + 1}`].selected : 'لم تجب';
-                const isCorrect = userStep === step;
-                reviewHTML += `
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 10px; background: ${isCorrect ? '#f0fff4' : '#fff5f5'}; border-radius: 5px;">
-                        <span><strong>الخطوة ${index + 1}:</strong></span>
-                        <span>إجابتك: ${userStep} | الصحيحة: ${step} ${isCorrect ? '✅' : '❌'}</span>
-                    </div>
-                `;
-            });
-            
-            reviewHTML += `</div>
-                    <div class="explanation">
-                        <strong>الشرح:</strong> ${explanation}
-                    </div>
-                </div>
-            `;
-            
-            return reviewHTML;
-        }
-
-        // Initialize quiz
-        window.onload = function() {
-            if (!checkQuizStatus()) {
-                updateProgress();
-            }
-        };
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9623488ed63ae17f',t:'MTc1MzAyMzE1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'962364602303e225',t:'MTc1MzAyNDI5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
