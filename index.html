@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار HTML للمبتدئين</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-content {
+            padding: 30px;
+        }
+
+        .question {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-right: 5px solid #4facfe;
+        }
+
+        .question h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #4facfe;
+        }
+
+        .option input[type="radio"] {
+            margin-left: 10px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .score.excellent { color: #27ae60; }
+        .score.good { color: #f39c12; }
+        .score.needs-improvement { color: #e74c3c; }
+
+        .review {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .review h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-review {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .question-review.correct {
+            border-right: 5px solid #27ae60;
+        }
+
+        .question-review.incorrect {
+            border-right: 5px solid #e74c3c;
+        }
+
+        .user-answer {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .answer-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .answer-status.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .answer-status.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-content {
+                padding: 20px;
+            }
+            
+            .question {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎯 اختبار HTML للمبتدئين</h1>
+            <p>15 سؤالاً في أساسيات HTML - اختبر معلوماتك!</p>
+        </div>
+
+        <div class="quiz-content">
+            <form id="quizForm">
+                <!-- السؤال 1 -->
+                <div class="question">
+                    <h3>1. ما دور وسم &lt;!DOCTYPE html&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q1a" name="q1" value="a">
+                            <label for="q1a">أ) يبدأ صفحة &lt;head&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1b" name="q1" value="b">
+                            <label for="q1b">ب) يحدد نوع HTML5</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1c" name="q1" value="c">
+                            <label for="q1c">ج) ينشئ عنصر &lt;html&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q1d" name="q1" value="d">
+                            <label for="q1d">د) جزء من &lt;meta&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 2 -->
+                <div class="question">
+                    <h3>2. أين توضع سمة lang="ar"؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q2a" name="q2" value="a">
+                            <label for="q2a">أ) داخل &lt;head&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2b" name="q2" value="b">
+                            <label for="q2b">ب) داخل وسم &lt;html&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2c" name="q2" value="c">
+                            <label for="q2c">ج) داخل &lt;body&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q2d" name="q2" value="d">
+                            <label for="q2d">د) داخل &lt;meta&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 3 -->
+                <div class="question">
+                    <h3>3. أي الوسوم التالية لا يوضع داخل &lt;head&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q3a" name="q3" value="a">
+                            <label for="q3a">أ) &lt;title&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3b" name="q3" value="b">
+                            <label for="q3b">ب) &lt;meta&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3c" name="q3" value="c">
+                            <label for="q3c">ج) &lt;link&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q3d" name="q3" value="d">
+                            <label for="q3d">د) &lt;body&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 4 -->
+                <div class="question">
+                    <h3>4. ما فائدة &lt;meta charset="UTF-8"&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q4a" name="q4" value="a">
+                            <label for="q4a">أ) لتحديد ترميز الأحرف</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4b" name="q4" value="b">
+                            <label for="q4b">ب) لوصل ملف CSS</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4c" name="q4" value="c">
+                            <label for="q4c">ج) لإضافة وصف للصفحة</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q4d" name="q4" value="d">
+                            <label for="q4d">د) لتحديد لغة الصفحة</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 5 -->
+                <div class="question">
+                    <h3>5. وسم &lt;link rel="stylesheet"&gt; يربط ملف جافاسكربت.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q5a" name="q5" value="true">
+                            <label for="q5a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5b" name="q5" value="false">
+                            <label for="q5b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 6 -->
+                <div class="question">
+                    <h3>6. ما الفرق بين &lt;div&gt; و &lt;span&gt;؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q6a" name="q6" value="a">
+                            <label for="q6a">أ) &lt;div&gt; inline و &lt;span&gt; block</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6b" name="q6" value="b">
+                            <label for="q6b">ب) &lt;div&gt; حجم النص و &lt;span&gt; يحفظ الصور</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6c" name="q6" value="c">
+                            <label for="q6c">ج) &lt;div&gt; عنصر block و &lt;span&gt; عنصر inline</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q6d" name="q6" value="d">
+                            <label for="q6d">د) لا يوجد فرق</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 7 -->
+                <div class="question">
+                    <h3>7. كيف تصنع قائمة مرقّمة؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q7a" name="q7" value="a">
+                            <label for="q7a">أ) &lt;ul&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7b" name="q7" value="b">
+                            <label for="q7b">ب) &lt;ol&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7c" name="q7" value="c">
+                            <label for="q7c">ج) &lt;list&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q7d" name="q7" value="d">
+                            <label for="q7d">د) &lt;li&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 8 -->
+                <div class="question">
+                    <h3>8. أي الوسوم تُستخدم لإضافة فاصل سطر؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q8a" name="q8" value="a">
+                            <label for="q8a">أ) &lt;p&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8b" name="q8" value="b">
+                            <label for="q8b">ب) &lt;br&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8c" name="q8" value="c">
+                            <label for="q8c">ج) &lt;hr&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q8d" name="q8" value="d">
+                            <label for="q8d">د) &lt;span&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 9 -->
+                <div class="question">
+                    <h3>9. ما وسم يستخدم لعرض صور؟</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q9a" name="q9" value="a">
+                            <label for="q9a">أ) &lt;picture&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9b" name="q9" value="b">
+                            <label for="q9b">ب) &lt;img&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9c" name="q9" value="c">
+                            <label for="q9c">ج) &lt;image&gt;</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q9d" name="q9" value="d">
+                            <label for="q9d">د) &lt;src&gt;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 10 -->
+                <div class="question">
+                    <h3>10. وسم &lt;img&gt; يتطلب سمة src.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q10a" name="q10" value="true">
+                            <label for="q10a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q10b" name="q10" value="false">
+                            <label for="q10b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 11 -->
+                <div class="question">
+                    <h3>11. &lt;title&gt; يظهر في تبويب المتصفح.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q11a" name="q11" value="true">
+                            <label for="q11a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q11b" name="q11" value="false">
+                            <label for="q11b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 12 -->
+                <div class="question">
+                    <h3>12. وسم &lt;body&gt; يمكن أن يحتوي على &lt;meta&gt;.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q12a" name="q12" value="true">
+                            <label for="q12a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q12b" name="q12" value="false">
+                            <label for="q12b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 13 -->
+                <div class="question">
+                    <h3>13. الوسم &lt;br&gt; عنصر ذاتي الإغلاق (self-closing).</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q13a" name="q13" value="true">
+                            <label for="q13a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q13b" name="q13" value="false">
+                            <label for="q13b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 14 -->
+                <div class="question">
+                    <h3>14. يمكن استخدام وسم &lt;link&gt; داخل &lt;body&gt;.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q14a" name="q14" value="true">
+                            <label for="q14a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q14b" name="q14" value="false">
+                            <label for="q14b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- السؤال 15 -->
+                <div class="question">
+                    <h3>15. &lt;strong&gt; و &lt;b&gt; يظهران النص بالخط العريض، لكن &lt;strong&gt; دلالي.</h3>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" id="q15a" name="q15" value="true">
+                            <label for="q15a">صح</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q15b" name="q15" value="false">
+                            <label for="q15b">خطأ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">إنهاء الاختبار وعرض النتيجة</button>
+            </form>
+
+            <div id="results" class="results">
+                <div id="scoreDisplay" class="score"></div>
+                <p id="scoreMessage"></p>
+            </div>
+
+            <div id="review" class="review">
+                <h2>📋 مراجعة الإجابات</h2>
+                <div id="reviewContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'b', 
+            q3: 'd',
+            q4: 'a',
+            q5: 'false',
+            q6: 'c',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'true',
+            q11: 'true',
+            q12: 'false',
+            q13: 'true',
+            q14: 'false',
+            q15: 'true'
+        };
+
+        const questions = [
+            {
+                question: 'ما دور وسم &lt;!DOCTYPE html&gt;؟',
+                options: {
+                    a: 'أ) يبدأ صفحة &lt;head&gt;',
+                    b: 'ب) يحدد نوع HTML5',
+                    c: 'ج) ينشئ عنصر &lt;html&gt;',
+                    d: 'د) جزء من &lt;meta&gt;'
+                }
+            },
+            {
+                question: 'أين توضع سمة lang="ar"؟',
+                options: {
+                    a: 'أ) داخل &lt;head&gt;',
+                    b: 'ب) داخل وسم &lt;html&gt;',
+                    c: 'ج) داخل &lt;body&gt;',
+                    d: 'د) داخل &lt;meta&gt;'
+                }
+            },
+            {
+                question: 'أي الوسوم التالية لا يوضع داخل &lt;head&gt;؟',
+                options: {
+                    a: 'أ) &lt;title&gt;',
+                    b: 'ب) &lt;meta&gt;',
+                    c: 'ج) &lt;link&gt;',
+                    d: 'د) &lt;body&gt;'
+                }
+            },
+            {
+                question: 'ما فائدة &lt;meta charset="UTF-8"&gt;؟',
+                options: {
+                    a: 'أ) لتحديد ترميز الأحرف',
+                    b: 'ب) لوصل ملف CSS',
+                    c: 'ج) لإضافة وصف للصفحة',
+                    d: 'د) لتحديد لغة الصفحة'
+                }
+            },
+            {
+                question: 'وسم &lt;link rel="stylesheet"&gt; يربط ملف جافاسكربت.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'ما الفرق بين &lt;div&gt; و &lt;span&gt;؟',
+                options: {
+                    a: 'أ) &lt;div&gt; inline و &lt;span&gt; block',
+                    b: 'ب) &lt;div&gt; حجم النص و &lt;span&gt; يحفظ الصور',
+                    c: 'ج) &lt;div&gt; عنصر block و &lt;span&gt; عنصر inline',
+                    d: 'د) لا يوجد فرق'
+                }
+            },
+            {
+                question: 'كيف تصنع قائمة مرقّمة؟',
+                options: {
+                    a: 'أ) &lt;ul&gt;',
+                    b: 'ب) &lt;ol&gt;',
+                    c: 'ج) &lt;list&gt;',
+                    d: 'د) &lt;li&gt;'
+                }
+            },
+            {
+                question: 'أي الوسوم تُستخدم لإضافة فاصل سطر؟',
+                options: {
+                    a: 'أ) &lt;p&gt;',
+                    b: 'ب) &lt;br&gt;',
+                    c: 'ج) &lt;hr&gt;',
+                    d: 'د) &lt;span&gt;'
+                }
+            },
+            {
+                question: 'ما وسم يستخدم لعرض صور؟',
+                options: {
+                    a: 'أ) &lt;picture&gt;',
+                    b: 'ب) &lt;img&gt;',
+                    c: 'ج) &lt;image&gt;',
+                    d: 'د) &lt;src&gt;'
+                }
+            },
+            {
+                question: 'وسم &lt;img&gt; يتطلب سمة src.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: '&lt;title&gt; يظهر في تبويب المتصفح.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'وسم &lt;body&gt; يمكن أن يحتوي على &lt;meta&gt;.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'الوسم &lt;br&gt; عنصر ذاتي الإغلاق (self-closing).',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: 'يمكن استخدام وسم &lt;link&gt; داخل &lt;body&gt;.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            },
+            {
+                question: '&lt;strong&gt; و &lt;b&gt; يظهران النص بالخط العريض، لكن &lt;strong&gt; دلالي.',
+                options: {
+                    true: 'صح',
+                    false: 'خطأ'
+                }
+            }
+        ];
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let score = 0;
+            let userAnswers = {};
+            
+            // جمع إجابات المستخدم
+            for (let [key, value] of formData.entries()) {
+                userAnswers[key] = value;
+            }
+            
+            // التحقق من الإجابات
+            for (let question in correctAnswers) {
+                if (userAnswers[question] === correctAnswers[question]) {
+                    score++;
+                }
+            }
+            
+            // عرض النتيجة
+            displayResults(score, userAnswers);
+            
+            // إخفاء النموذج وإظهار النتائج
+            this.style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('review').style.display = 'block';
+        });
+
+        function displayResults(score, userAnswers) {
+            const percentage = (score / 15) * 100;
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
+            
+            scoreDisplay.textContent = `${score}/15 (${percentage.toFixed(1)}%)`;
+            
+            if (percentage >= 80) {
+                scoreDisplay.className = 'score excellent';
+                scoreMessage.textContent = '🎉 ممتاز! لديك فهم قوي لأساسيات HTML';
+            } else if (percentage >= 60) {
+                scoreDisplay.className = 'score good';
+                scoreMessage.textContent = '👍 جيد! تحتاج لمراجعة بعض المفاهيم';
+            } else {
+                scoreDisplay.className = 'score needs-improvement';
+                scoreMessage.textContent = '📚 يحتاج تحسين - راجع المواد وحاول مرة أخرى';
+            }
+            
+            // عرض مراجعة الإجابات
+            displayReview(userAnswers);
+        }
+
+        function displayReview(userAnswers) {
+            const reviewContent = document.getElementById('reviewContent');
+            let reviewHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionKey = `q${index + 1}`;
+                const userAnswer = userAnswers[questionKey];
+                const correctAnswer = correctAnswers[questionKey];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                reviewHTML += `
+                    <div class="question-review ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="answer-status ${isCorrect ? 'correct' : 'incorrect'}">
+                            ${isCorrect ? '✅ إجابة صحيحة' : '❌ إجابة خاطئة'}
+                        </div>
+                        <h4>${index + 1}. ${q.question}</h4>
+                        ${!isCorrect ? `<p><strong>إجابتك:</strong> <span class="user-answer">${q.options[userAnswer] || 'لم تجب'}</span></p>` : ''}
+                        <p><strong>الإجابة الصحيحة:</strong> <span class="correct-answer">${q.options[correctAnswer]}</span></p>
+                    </div>
+                `;
+            });
+            
+            reviewContent.innerHTML = reviewHTML;
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96219e4563c673d3',t:'MTc1MzAwNTY5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
