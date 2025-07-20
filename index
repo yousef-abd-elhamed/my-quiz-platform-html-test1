@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار HTML للمبتدئين</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
+        .question-card { transition: all 0.3s ease; }
+        .correct-answer { background: linear-gradient(135deg, #10b981, #059669); }
+        .incorrect-answer { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .neutral-answer { background: #f3f4f6; }
+        .quiz-completed .question-card { pointer-events: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">🌐 اختبار HTML للمبتدئين</h1>
+            <p class="text-gray-600 text-lg">اختبر معرفتك بأساسيات لغة HTML</p>
+            <div class="mt-4 bg-blue-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center">
+                    <span class="text-blue-800 font-semibold">النتيجة: <span id="score">0</span> / 15</span>
+                    <div class="w-64 bg-gray-200 rounded-full h-3">
+                        <div id="progress" class="bg-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container">
+            <!-- Question 1 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">1. ما هو المعنى الصحيح لـ HTML؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q1" value="a" class="mr-3">
+                        <span>HyperText Markup Language</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q1" value="b" class="mr-3">
+                        <span>High Tech Modern Language</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q1" value="c" class="mr-3">
+                        <span>Home Tool Markup Language</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q1" value="d" class="mr-3">
+                        <span>Hyperlink and Text Markup Language</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">2. أي من العناصر التالية يُستخدم لإنشاء عنوان رئيسي؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q2" value="a" class="mr-3">
+                        <span>&lt;title&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q2" value="b" class="mr-3">
+                        <span>&lt;h1&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q2" value="c" class="mr-3">
+                        <span>&lt;header&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q2" value="d" class="mr-3">
+                        <span>&lt;head&gt;</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">3. صح أم خطأ: عنصر &lt;br&gt; يحتاج إلى وسم إغلاق؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q3" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q3" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">4. أي عنصر يُستخدم لإنشاء قائمة مرقمة؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q4" value="a" class="mr-3">
+                        <span>&lt;ul&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q4" value="b" class="mr-3">
+                        <span>&lt;ol&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q4" value="c" class="mr-3">
+                        <span>&lt;li&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q4" value="d" class="mr-3">
+                        <span>&lt;list&gt;</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">5. صح أم خطأ: يمكن أن تحتوي صفحة HTML على أكثر من عنصر &lt;body&gt; واحد؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q5" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q5" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">6. أي خاصية تُستخدم لإضافة رابط في عنصر &lt;a&gt;؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q6" value="a" class="mr-3">
+                        <span>link</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q6" value="b" class="mr-3">
+                        <span>href</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q6" value="c" class="mr-3">
+                        <span>src</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q6" value="d" class="mr-3">
+                        <span>url</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">7. صح أم خطأ: عنصر &lt;img&gt; يحتاج إلى وسم إغلاق؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q7" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q7" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">8. أي عنصر يُستخدم لإنشاء جدول؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q8" value="a" class="mr-3">
+                        <span>&lt;table&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q8" value="b" class="mr-3">
+                        <span>&lt;tab&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q8" value="c" class="mr-3">
+                        <span>&lt;tr&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q8" value="d" class="mr-3">
+                        <span>&lt;td&gt;</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">9. صح أم خطأ: يجب أن تبدأ كل صفحة HTML بـ &lt;!DOCTYPE html&gt;؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q9" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q9" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">10. أي عنصر يُستخدم لإنشاء فقرة نصية؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q10" value="a" class="mr-3">
+                        <span>&lt;paragraph&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q10" value="b" class="mr-3">
+                        <span>&lt;p&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q10" value="c" class="mr-3">
+                        <span>&lt;text&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q10" value="d" class="mr-3">
+                        <span>&lt;para&gt;</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">11. صح أم خطأ: يمكن استخدام عنصر &lt;div&gt; لتجميع العناصر؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q11" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q11" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">12. أي خاصية تُستخدم لتحديد مصدر الصورة في عنصر &lt;img&gt;؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q12" value="a" class="mr-3">
+                        <span>href</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q12" value="b" class="mr-3">
+                        <span>src</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q12" value="c" class="mr-3">
+                        <span>link</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q12" value="d" class="mr-3">
+                        <span>image</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">13. صح أم خطأ: عنصر &lt;strong&gt; يجعل النص عريضاً؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q13" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q13" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">14. أي عنصر يُستخدم لإنشاء نموذج (form)؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q14" value="a" class="mr-3">
+                        <span>&lt;form&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q14" value="b" class="mr-3">
+                        <span>&lt;input&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q14" value="c" class="mr-3">
+                        <span>&lt;field&gt;</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q14" value="d" class="mr-3">
+                        <span>&lt;submit&gt;</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">15. صح أم خطأ: يمكن استخدام عنصر &lt;span&gt; لتنسيق جزء من النص؟</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q15" value="true" class="mr-3">
+                        <span>✅ صح</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg border-2 border-gray-200 hover:bg-blue-50 cursor-pointer">
+                        <input type="radio" name="q15" value="false" class="mr-3">
+                        <span>❌ خطأ</span>
+                    </label>
+                </div>
+                <div class="answer-feedback mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mb-8">
+            <button id="submit-btn" onclick="submitQuiz()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                🎯 إنهاء الاختبار وعرض النتائج
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-8 text-center mb-8">
+                <h2 class="text-3xl font-bold mb-4">🎉 نتائج الاختبار</h2>
+                <div id="final-score" class="text-6xl font-bold mb-4"></div>
+                <div id="grade" class="text-2xl font-semibold mb-4"></div>
+                <div id="performance-message" class="text-lg text-gray-600"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'a', // HyperText Markup Language
+            q2: 'b', // <h1>
+            q3: 'false', // <br> doesn't need closing tag
+            q4: 'b', // <ol>
+            q5: 'false', // Only one <body> allowed
+            q6: 'b', // href
+            q7: 'false', // <img> doesn't need closing tag
+            q8: 'a', // <table>
+            q9: 'true', // DOCTYPE is required
+            q10: 'b', // <p>
+            q11: 'true', // <div> can group elements
+            q12: 'b', // src
+            q13: 'true', // <strong> makes text bold
+            q14: 'a', // <form>
+            q15: 'true' // <span> can style text parts
+        };
+
+        const explanations = {
+            q1: 'HTML تعني HyperText Markup Language وهي لغة ترميز النصوص التشعبية',
+            q2: 'عنصر <h1> يُستخدم لإنشاء العنوان الرئيسي الأكبر في الصفحة',
+            q3: 'عنصر <br> هو عنصر فارغ (void element) ولا يحتاج إلى وسم إغلاق',
+            q4: 'عنصر <ol> يُستخدم لإنشاء قائمة مرقمة (Ordered List)',
+            q5: 'يجب أن تحتوي صفحة HTML على عنصر <body> واحد فقط',
+            q6: 'خاصية href تُستخدم لتحديد الرابط في عنصر <a>',
+            q7: 'عنصر <img> هو عنصر فارغ ولا يحتاج إلى وسم إغلاق',
+            q8: 'عنصر <table> يُستخدم لإنشاء الجداول في HTML',
+            q9: 'DOCTYPE يخبر المتصفح بنوع وإصدار HTML المستخدم ويجب أن يكون في بداية كل صفحة',
+            q10: 'عنصر <p> يُستخدم لإنشاء فقرة نصية',
+            q11: 'عنصر <div> يُستخدم كحاوي لتجميع العناصر الأخرى',
+            q12: 'خاصية src تُستخدم لتحديد مصدر الصورة في عنصر <img>',
+            q13: 'عنصر <strong> يُستخدم لإظهار النص بخط عريض مع إعطاء أهمية دلالية',
+            q14: 'عنصر <form> يُستخدم لإنشاء النماذج التفاعلية',
+            q15: 'عنصر <span> يُستخدم لتنسيق جزء محدد من النص داخل عنصر آخر'
+        };
+
+        let quizSubmitted = false;
+
+        function submitQuiz() {
+            if (quizSubmitted) return;
+            
+            let score = 0;
+            const totalQuestions = 15;
+            
+            // Check answers and show feedback
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = `q${i}`;
+                const selectedAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+                const feedbackDiv = document.querySelector(`#quiz-container .question-card:nth-child(${i}) .answer-feedback`);
+                
+                if (selectedAnswer) {
+                    const isCorrect = selectedAnswer.value === correctAnswers[questionName];
+                    if (isCorrect) {
+                        score++;
+                        feedbackDiv.innerHTML = `
+                            <div class="correct-answer text-white p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <span class="text-2xl mr-2">✅</span>
+                                    <span class="font-bold">إجابة صحيحة!</span>
+                                </div>
+                                <p class="text-sm">${explanations[questionName]}</p>
+                            </div>
+                        `;
+                    } else {
+                        feedbackDiv.innerHTML = `
+                            <div class="incorrect-answer text-white p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <span class="text-2xl mr-2">❌</span>
+                                    <span class="font-bold">إجابة خاطئة</span>
+                                </div>
+                                <p class="text-sm mb-2"><strong>الإجابة الصحيحة:</strong> ${getCorrectAnswerText(questionName)}</p>
+                                <p class="text-sm">${explanations[questionName]}</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    feedbackDiv.innerHTML = `
+                        <div class="neutral-answer border-2 border-yellow-400 text-yellow-800 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <span class="text-2xl mr-2">⚠️</span>
+                                <span class="font-bold">لم يتم الإجابة على هذا السؤال</span>
+                            </div>
+                            <p class="text-sm mb-2"><strong>الإجابة الصحيحة:</strong> ${getCorrectAnswerText(questionName)}</p>
+                            <p class="text-sm">${explanations[questionName]}</p>
+                        </div>
+                    `;
+                }
+                
+                feedbackDiv.classList.remove('hidden');
+                feedbackDiv.classList.add('fade-in');
+            }
+            
+            // Show results
+            showResults(score, totalQuestions);
+            
+            // Disable further submissions
+            quizSubmitted = true;
+            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('quiz-container').classList.add('quiz-completed');
+            
+            // Scroll to results
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getCorrectAnswerText(questionName) {
+            const correctValue = correctAnswers[questionName];
+            const questionElement = document.querySelector(`input[name="${questionName}"][value="${correctValue}"]`);
+            return questionElement ? questionElement.nextElementSibling.textContent : correctValue;
+        }
+
+        function showResults(score, total) {
+            const percentage = (score / total) * 100;
+            const resultsSection = document.getElementById('results-section');
+            const finalScore = document.getElementById('final-score');
+            const grade = document.getElementById('grade');
+            const performanceMessage = document.getElementById('performance-message');
+            
+            finalScore.textContent = `${score}/${total}`;
+            
+            let gradeText = '';
+            let gradeColor = '';
+            let message = '';
+            
+            if (percentage >= 90) {
+                gradeText = 'ممتاز';
+                gradeColor = 'text-green-600';
+                message = '🎊 تهانينا! لديك معرفة ممتازة بأساسيات HTML';
+            } else if (percentage >= 80) {
+                gradeText = 'جيد جداً';
+                gradeColor = 'text-blue-600';
+                message = '👏 أداء رائع! لديك فهم جيد لأساسيات HTML';
+            } else if (percentage >= 70) {
+                gradeText = 'جيد';
+                gradeColor = 'text-yellow-600';
+                message = '👍 أداء جيد! راجع بعض المفاهيم وستتحسن أكثر';
+            } else if (percentage >= 60) {
+                gradeText = 'مقبول';
+                gradeColor = 'text-orange-600';
+                message = '📚 تحتاج لمراجعة أساسيات HTML أكثر';
+            } else {
+                gradeText = 'يحتاج تحسين';
+                gradeColor = 'text-red-600';
+                message = '📖 ننصحك بدراسة أساسيات HTML من جديد';
+            }
+            
+            finalScore.className = `text-6xl font-bold mb-4 ${gradeColor}`;
+            grade.innerHTML = `${percentage.toFixed(1)}% - ${gradeText}`;
+            grade.className = `text-2xl font-semibold mb-4 ${gradeColor}`;
+            performanceMessage.textContent = message;
+            
+            resultsSection.classList.remove('hidden');
+            resultsSection.classList.add('fade-in');
+            
+            // Update progress bar
+            updateProgress(score, total);
+        }
+
+        function updateProgress(score, total) {
+            const percentage = (score / total) * 100;
+            document.getElementById('progress').style.width = percentage + '%';
+            document.getElementById('score').textContent = score;
+        }
+
+        // Add some interactivity to radio buttons
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio' && !quizSubmitted) {
+                const label = e.target.closest('label');
+                const questionCard = label.closest('.question-card');
+                
+                // Remove previous selections styling
+                questionCard.querySelectorAll('label').forEach(l => {
+                    l.classList.remove('bg-blue-100', 'border-blue-400');
+                });
+                
+                // Style selected option
+                label.classList.add('bg-blue-100', 'border-blue-400');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96226ab335004329',t:'MTc1MzAxNDA3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
